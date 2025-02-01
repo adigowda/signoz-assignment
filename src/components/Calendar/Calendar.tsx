@@ -7,6 +7,11 @@ export function Calendar(): JSX.Element {
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
+        headerToolbar={{
+          left: "prev,next,today",
+          center: "title",
+          right: "dayGridWeek,dayGridDay,dayGridMonth",
+        }}
       />
     </div>
   );
