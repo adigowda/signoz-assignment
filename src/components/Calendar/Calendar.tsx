@@ -1,12 +1,13 @@
 import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
 export function Calendar(): JSX.Element {
   return (
     <div>
       <FullCalendar
-        plugins={[dayGridPlugin]}
-        initialView="dayGridMonth"
+        plugins={[timeGridPlugin, dayGridPlugin]}
+        initialView="timeGridWeek"
         headerToolbar={{
           left: "prev,next,today",
           center: "title",
