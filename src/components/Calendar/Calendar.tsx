@@ -1,12 +1,13 @@
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import intercatPlugin from "@fullcalendar/interaction";
 
 export function Calendar(): JSX.Element {
   return (
     <div>
       <FullCalendar
-        plugins={[timeGridPlugin, dayGridPlugin]}
+        plugins={[timeGridPlugin, dayGridPlugin, intercatPlugin]}
         initialView="timeGridWeek"
         headerToolbar={{
           left: "prev,next,today",
@@ -28,6 +29,7 @@ export function Calendar(): JSX.Element {
             },
           },
         }}
+        selectable
       />
     </div>
   );
