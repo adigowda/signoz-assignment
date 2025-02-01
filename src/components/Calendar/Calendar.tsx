@@ -10,7 +10,13 @@ export function Calendar(): JSX.Element {
         headerToolbar={{
           left: "prev,next,today",
           center: "title",
-          right: "dayGridWeek,dayGridDay,dayGridMonth",
+          right: "timeGridDay,timeGridWeek,dayGridMonth",
+        }}
+        buttonText={{
+          day: "Day",
+          month: "Month",
+          week: "Week",
+          today: "Today",
         }}
       />
     </div>
