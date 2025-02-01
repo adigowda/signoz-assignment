@@ -19,6 +19,11 @@ export function Calendar(): JSX.Element {
           week: "Week",
           today: "Today",
         }}
+        views={{
+          timeGridWeek: {
+            dayHeaderFormat: { day: "2-digit", month: "short" },
+          },
+        }}
       />
     </div>
   );
