@@ -2,8 +2,11 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import intercatPlugin from "@fullcalendar/interaction";
+import { useEvents } from "../../hooks/useEvents";
 
 export function Calendar(): JSX.Element {
+  const { events } = useEvents();
+  
   return (
     <div>
       <FullCalendar
@@ -30,7 +33,9 @@ export function Calendar(): JSX.Element {
           },
         }}
         selectable
+        events={events}
       />
+      {showDetails && <EventEditor eventDetails={eventDetails} />}
     </div>
   );
 }
