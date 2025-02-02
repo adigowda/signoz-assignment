@@ -50,6 +50,7 @@ export function Calendar(): JSX.Element {
       />
       {showDetails && (
         <EventEditor
+          onClickClose={() => updateShowEventDetails(false)}
           eventDetails={eventDetails}
           onClickSave={onClickEventSave}
         />

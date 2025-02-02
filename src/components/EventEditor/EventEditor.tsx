@@ -4,14 +4,16 @@ import { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/";
 import { ColorPicker } from "../ColorPicker/ColorPicker"
+import Cross from "../../../public/Icons/cross.svg"
 
 interface EventEditorProps {
   eventDetails: IEvent;
   onClickSave: (event: IEvent) => void;
+  onClickClose: () => void;
 }
 
 export function EventEditor(props: EventEditorProps): JSX.Element {
-  const { eventDetails, onClickSave } = props;
+  const { eventDetails, onClickSave, onClickClose } = props;
   const [eventConfig, setEventConfig] = useState({
     ...eventDetails,
   });
@@ -26,6 +28,7 @@ export function EventEditor(props: EventEditorProps): JSX.Element {
 
   return (
     <div className="bg-[#F0F4F9] shadow-2xl flex flex-col gap-6 z-10 p-6 w-[500px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl event-editor">
+      <img src={Cross} className="w-4 relative left-full -translate-x-full cursor-pointer" onClick={onClickClose} />
       <input
         placeholder="Add title"
         value={title}
