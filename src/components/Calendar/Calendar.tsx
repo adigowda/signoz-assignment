@@ -5,8 +5,10 @@ import intercatPlugin from "@fullcalendar/interaction";
 import { EventEditor } from "../EventEditor/EventEditor";
 import { useEvents } from "../../hooks/useEvents";
 import { useCalendar } from "../../hooks/useCalendar";
+import { useReminders } from "../../hooks/useReminders"
 
 export function Calendar(): JSX.Element {
+  useReminders();
   const { events } = useEvents();
   const {
     selectedEvent: { shouldShowDetails, eventDetails },
@@ -51,6 +53,7 @@ export function Calendar(): JSX.Element {
         eventResize={onEventDragEnd}
         select={onSelectCalendar}
         eventClick={({ event: { id } }) => onSelectEvent(id)}
+        nowIndicator
       />
       {shouldShowDetails && (
         <EventEditor
