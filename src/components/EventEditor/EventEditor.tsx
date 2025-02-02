@@ -44,14 +44,14 @@ export function EventEditor(props: EventEditorProps): JSX.Element {
           value={dayjs(start as Date)}
           slotProps={{ textField: { size: "small", variant: "filled" } }}
           sx={{ width: 140 }}
-          onChange={(value) => handleChange({ start: value?.toDate() })}
+          onChange={(value) => handleChange({ start: value?.toISOString() })}
         />
         <p>to</p>
         <TimePicker
           value={dayjs(end as Date)}
           slotProps={{ textField: { size: "small", variant: "filled" } }}
           format="h:ma"
-          onChange={(value) => handleChange({ end: value?.toDate() })}
+          onChange={(value) => handleChange({ end: value?.toISOString() })}
           sx={{ width: 140 }}
         />
       </div>
