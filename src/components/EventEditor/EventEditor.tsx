@@ -24,7 +24,7 @@ export function EventEditor(props: EventEditorProps): JSX.Element {
   };
 
   return (
-    <div className="bg-[#F0F4F9] flex flex-col gap-4 h-[300px] z-10 p-6 w-[400px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl event-editor">
+    <div className="bg-[#F0F4F9] flex flex-col gap-4 z-10 p-6 w-[400px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl event-editor">
       <input
         placeholder="Add title"
         value={title}
