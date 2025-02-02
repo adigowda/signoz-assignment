@@ -1,6 +1,11 @@
-import { DateSelectArg, EventInput as IEvent } from "@fullcalendar/core";
+import {
+  DateSelectArg,
+  EventDropArg,
+  EventInput as IEvent,
+} from "@fullcalendar/core";
 import { useState } from "react";
-import { useEvents } from "./useEvents"
+import { useEvents } from "./useEvents";
+import { EventResizeDoneArg } from "@fullcalendar/interaction/index.js";
 
 export const useCalendar = () => {
   const [selectedEvent, setSelectedEvent] = useState<{
@@ -34,6 +39,19 @@ const onSelectEvent = (id: string) => {
     setSelectedEvent((prev) => ({ ...prev, shouldShowDetails: show }));
   };
 
+  const onEventDragEnd = (eventInfo: EventDropArg | EventResizeDoneArg) => {
+    const {
+      event: { id, start, end },
+    } = eventInfo;
+    const eventDetails = getEventById(id);
+
+    updateEvent(id, {
+      ...eventDetails,
+      start,
+      end,
+    } as IEvent);
+  };
+
   const onClickEventSave = (event: IEvent) => {
     if (event.id) {
       updateEvent(event.id, event);
@@ -47,6 +65,7 @@ const onSelectEvent = (id: string) => {
     selectedEvent,
     onSelectCalendar,
     onSelectEvent,
+    onEventDragEnd,
     onClickEventSave,
     updateShowEventDetails
   };

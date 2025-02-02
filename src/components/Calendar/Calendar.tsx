@@ -12,6 +12,7 @@ export function Calendar(): JSX.Element {
     selectedEvent: { shouldShowDetails, eventDetails },
     onSelectCalendar,
     onSelectEvent,
+    onEventDragEnd,
     onClickEventSave,
     updateShowEventDetails,
   } = useCalendar();
@@ -45,6 +46,9 @@ export function Calendar(): JSX.Element {
         unselectCancel={".event-editor,.MuiPickersPopper-root,.MuiPopover-root"}
         selectable={!shouldShowDetails}
         events={events}
+        editable
+        eventDrop={onEventDragEnd}
+        eventResize={onEventDragEnd}
         select={onSelectCalendar}
         eventClick={({ event: { id } }) => onSelectEvent(id)}
       />
