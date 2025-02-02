@@ -1,14 +1,16 @@
+import { useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import intercatPlugin from "@fullcalendar/interaction";
+import interactPlugin from "@fullcalendar/interaction";
 import { EventEditor } from "../EventEditor/EventEditor";
 import { useEvents } from "../../hooks/useEvents";
 import { useCalendar } from "../../hooks/useCalendar";
-import { useReminders } from "../../hooks/useReminders"
+import { useReminders } from "../../hooks/useReminders";
 
 export function Calendar(): JSX.Element {
   useReminders();
+  const calendarRef = useRef<FullCalendar>(null);
   const { events } = useEvents();
   const {
     selectedEvent: { shouldShowDetails, eventDetails },
@@ -19,14 +21,19 @@ export function Calendar(): JSX.Element {
     updateShowEventDetails,
   } = useCalendar();
 
+  const calendarApi = calendarRef.current?.getApi();
+
   return (
-    <div>
+    <div className="p-10 max-sm:px-5 text-sm">
+      <p className="font-bold text-2xl mb-5 text-center">
+        {calendarApi?.view.title}
+      </p>
       <FullCalendar
-        plugins={[timeGridPlugin, dayGridPlugin, intercatPlugin]}
+        ref={calendarRef}
+        plugins={[timeGridPlugin, dayGridPlugin, interactPlugin]}
         initialView="timeGridWeek"
         headerToolbar={{
           left: "prev,next,today",
-          center: "title",
           right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         buttonText={{
@@ -56,6 +63,7 @@ export function Calendar(): JSX.Element {
         nowIndicator
         navLinks
         eventMinHeight={20}
+        height="90vh"
         eventTimeFormat={{
           hour: "numeric",
           minute: "2-digit",
