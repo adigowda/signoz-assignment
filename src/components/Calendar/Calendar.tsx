@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -11,6 +11,7 @@ import { useReminders } from "../../hooks/useReminders";
 export function Calendar(): JSX.Element {
   useReminders();
   const calendarRef = useRef<FullCalendar>(null);
+  const calendarApi = calendarRef.current?.getApi();
   const { events } = useEvents();
   const {
     selectedEvent: { shouldShowDetails, eventDetails },
@@ -21,19 +22,27 @@ export function Calendar(): JSX.Element {
     updateShowEventDetails,
   } = useCalendar();
 
-  const calendarApi = calendarRef.current?.getApi();
+  const [calendarTitle, setCalendarTitle] = useState('');
+
+  useEffect(() => {
+    if(!calendarTitle && calendarApi?.view.title) {
+      setCalendarTitle(calendarApi?.view.title)
+    }
+
+    calendarApi?.on("datesSet", (event) => {
+      setCalendarTitle(event.view.title);
+    });
+  }, [calendarApi, calendarTitle]);
 
   return (
     <div className="p-10 max-sm:px-5 text-sm">
-      <p className="font-bold text-2xl mb-5 text-center">
-        {calendarApi?.view.title}
-      </p>
+      <p className="text-2xl mb-5 text-center">{calendarTitle}</p>
       <FullCalendar
         ref={calendarRef}
         plugins={[timeGridPlugin, dayGridPlugin, interactPlugin]}
         initialView="timeGridWeek"
         headerToolbar={{
-          left: "prev,next,today",
+          left: "prev,next today",
           right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         buttonText={{
