@@ -70,8 +70,14 @@ export const useReminders = () => {
     }
 
     reminderTimeoutRef.current = setTimeout(() => {
-      //  TODO: Stitch same events into one single alert
-      reminders.eventsToNotify.forEach(({ title }) => window.alert(title));
+      const alertMessage = reminders.eventsToNotify.reduce(
+        (prevMessage, currentEvent) => {
+          const message = `${currentEvent.title} will be starting in 10 mins`;
+          return prevMessage + "\n" + message;
+        },
+        ""
+      );
+      window.alert(alertMessage);
 
       prepareNotifiableEvents();
     }, reminders.currentReminderTimeout);
