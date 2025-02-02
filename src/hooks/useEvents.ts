@@ -10,7 +10,7 @@ export const useEvents = () => {
   const createEvent = (event: IEvent) => {
     const id = uuidv4();
     setCalendarEvents((calendarEvents) => {
-      calendarEvents[id] = event;
+      calendarEvents[id] = { ...event, id };
     });
   };
 
@@ -23,7 +23,7 @@ export const useEvents = () => {
   const events = useMemo(
     () =>
       Object.keys(calendarEvents).map((key) => ({
-        key,
+        id: key,
         ...calendarEvents[key],
       })),
     [calendarEvents]
