@@ -20,6 +20,10 @@ export const useEvents = () => {
     });
   };
 
+  const getEventById = (id: string) => {
+    return calendarEvents[id];
+  };
+
   const events = useMemo(
     () =>
       Object.keys(calendarEvents).map((key) => ({
@@ -31,7 +35,8 @@ export const useEvents = () => {
 
   return {
     events,
+    createEvent,
     updateEvent,
-    createEvent
+    getEventById
   };
 };

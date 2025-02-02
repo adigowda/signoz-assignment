@@ -11,6 +11,8 @@ export function Calendar(): JSX.Element {
   const {
     onSelectCalendar,
     selectedEvent: { showDetails, eventDetails },
+    onSelectCalendar,
+    onSelectEvent,
     updateShowEventDetails,
   } = useCalendar();
 
@@ -44,6 +46,7 @@ export function Calendar(): JSX.Element {
         selectable={showDetails === false}
         events={events}
         select={onSelectCalendar}
+        eventClick={({ event: { id } }) => onSelectEvent(id)}
       />
       {showDetails && <EventEditor eventDetails={eventDetails} />}
     </div>
