@@ -25,13 +25,13 @@ export function EventEditor(props: EventEditorProps): JSX.Element {
   };
 
   return (
-    <div className="bg-[#F0F4F9] flex flex-col gap-4 z-10 p-6 w-[400px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl event-editor">
+    <div className="bg-[#F0F4F9] shadow-2xl flex flex-col gap-6 z-10 p-6 w-[500px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl event-editor">
       <input
         placeholder="Add title"
         value={title}
         onChange={(e) => handleChange({ title: e.target.value })}
         autoFocus
-        className="text-[16px] left-1/2 w-full px-2 pb-1 border-b-[1px] border-b-[#C4C7C5] outline-none"
+        className="text-[20px] left-1/2 w-full px-2 pb-1 border-b-[1px] border-b-[#C4C7C5] outline-none"
       />
       <DatePicker
         slotProps={{ textField: { size: "small", variant: "filled" } }}
