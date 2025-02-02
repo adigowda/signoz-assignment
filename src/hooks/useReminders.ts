@@ -3,6 +3,8 @@ import { useEvents } from "./useEvents";
 import dayjs from "dayjs";
 import { EventInput as IEvent } from "@fullcalendar/core";
 
+const REMIND_BEFORE_MS = 600000; // 10 minutes
+
 export const useReminders = () => {
   const { events } = useEvents();
   const reminderTimeoutRef = useRef<number | null>(null);
@@ -19,15 +21,16 @@ export const useReminders = () => {
     const currentTime = dayjs(new Date()).valueOf();
     return events
       .map(({ title, start }) => {
-        const timeStamp = dayjs(start as Date).valueOf();
+        const eventStartsAt = dayjs(start as Date).valueOf();
         return {
           title,
-          timeStamp,
-          currentReminderTimeout: timeStamp - currentTime,
+          eventStartsAt,
+          currentReminderTimeout:
+            eventStartsAt - currentTime - REMIND_BEFORE_MS,
         };
       })
       .filter(({ currentReminderTimeout }) => currentReminderTimeout > 0)
-      .sort((a, b) => a.timeStamp - b.timeStamp);
+      .sort((a, b) => a.eventStartsAt - b.eventStartsAt);
   };
 
   const prepareNotifiableEvents = () => {
