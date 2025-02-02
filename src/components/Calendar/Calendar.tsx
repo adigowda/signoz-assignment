@@ -4,15 +4,16 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import intercatPlugin from "@fullcalendar/interaction";
 import { EventEditor } from "../EventEditor/EventEditor";
 import { useEvents } from "../../hooks/useEvents";
-import { useCalendar } from "../../hooks/useCalendar"
+import { useCalendar } from "../../hooks/useCalendar";
 
 export function Calendar(): JSX.Element {
   const { events } = useEvents();
   const {
     onSelectCalendar,
     selectedEvent: { showDetails, eventDetails },
+    updateShowEventDetails,
   } = useCalendar();
-  
+
   return (
     <div>
       <FullCalendar
@@ -38,7 +39,9 @@ export function Calendar(): JSX.Element {
             },
           },
         }}
-        selectable
+        unselect={() => updateShowEventDetails(false)}
+        unselectCancel={".event-editor,.MuiPickersPopper-root"}
+        selectable={showDetails === false}
         events={events}
         select={onSelectCalendar}
       />

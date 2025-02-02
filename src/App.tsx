@@ -1,10 +1,14 @@
 import "./App.css";
 import { Calendar } from "./components/Calendar/Calendar";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 function App() {
   return (
     <>
-      <Calendar />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Calendar />
+      </LocalizationProvider>
     </>
   );
 }

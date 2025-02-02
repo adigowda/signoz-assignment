@@ -19,8 +19,13 @@ export const useCalendar = () => {
     });
   };
 
+  const updateShowEventDetails = (show: boolean) => {
+    setSelectedEvent((prev) => ({ ...prev, showDetails: show }));
+  };
+
   return {
     selectedEvent,
     onSelectCalendar,
+    updateShowEventDetails
   };
 };

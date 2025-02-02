@@ -1,4 +1,8 @@
 import { EventInput as IEvent } from "@fullcalendar/core";
+import dayjs from "dayjs";
+import { useState } from "react";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TimePicker } from "@mui/x-date-pickers/";
 
 interface EventEditorProps {
   eventDetails: IEvent;
@@ -6,14 +10,52 @@ interface EventEditorProps {
 
 export function EventEditor(props: EventEditorProps): JSX.Element {
   const { eventDetails } = props;
-  const { title } = eventDetails;
+  const [eventConfig, setEventConfig] = useState({
+    ...eventDetails,
+  });
+  const { title, start, end } = eventConfig;
+
+  const handleChange = (property: Partial<IEvent>) => {
+    setEventConfig((prev) => ({
+      ...prev,
+      ...property,
+    }));
+  };
+
   return (
-    <div className="bg-[#A6F1E0] z-10 p-6 w-[600px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl">
+    <div className="bg-[#F0F4F9] h-[300px] z-10 p-6 w-[400px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl event-editor">
       <input
         placeholder="Add title"
         value={title}
-        className="text-[16px] left-1/2 w-full px-2 pb-1 border-b-[1px] border-b-[#73C7C7] outline-none"
+        autoFocus
+        className="text-[16px] left-1/2 w-full px-2 pb-1 border-b-[1px] border-b-[#C4C7C5] outline-none"
       />
+      <div className="flex gap-2 mt-2 items-center">
+        <DatePicker
+          slotProps={{ textField: { size: "small", variant: "filled" } }}
+          value={dayjs(start as Date)}
+          format="dddd, D MMM"
+          name="start"
+          onChange={(value) => handleChange({ start: value?.toDate() })}
+        />
+      </div>
+      <div className="flex mt-4 gap-1 items-center">
+        <TimePicker
+          format="h:ma"
+          value={dayjs(start as Date)}
+          slotProps={{ textField: { size: "small", variant: "filled" } }}
+          sx={{ width: 140 }}
+          onChange={(value) => handleChange({ start: value?.toDate() })}
+        />
+        <p>to</p>
+        <TimePicker
+          value={dayjs(end as Date)}
+          slotProps={{ textField: { size: "small", variant: "filled" } }}
+          format="h:ma"
+          onChange={(value) => handleChange({ end: value?.toDate() })}
+          sx={{ width: 140 }}
+        />
+      </div>
     </div>
   );
 }
