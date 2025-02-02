@@ -8,7 +8,7 @@ export const useCalendar = () => {
     eventDetails: IEvent;
   }>({ showDetails: false, eventDetails: {} });
 
-  const { getEventById } = useEvents();
+  const { getEventById, createEvent, updateEvent } = useEvents();
 
   const onSelectCalendar = (info: DateSelectArg) => {
     const { start, end, allDay } = info;
@@ -34,10 +34,20 @@ const onSelectEvent = (id: string) => {
     setSelectedEvent((prev) => ({ ...prev, showDetails: show }));
   };
 
+  const onClickEventSave = (event: IEvent) => {
+    if (event.id) {
+      updateEvent(event.id, event);
+    } else {
+      createEvent(event);
+    }
+    updateShowEventDetails(false);
+  };
+
   return {
     selectedEvent,
     onSelectCalendar,
     onSelectEvent,
+    onClickEventSave,
     updateShowEventDetails
   };
 };

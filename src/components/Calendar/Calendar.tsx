@@ -9,10 +9,10 @@ import { useCalendar } from "../../hooks/useCalendar";
 export function Calendar(): JSX.Element {
   const { events } = useEvents();
   const {
-    onSelectCalendar,
     selectedEvent: { showDetails, eventDetails },
     onSelectCalendar,
     onSelectEvent,
+    onClickEventSave,
     updateShowEventDetails,
   } = useCalendar();
 
@@ -48,7 +48,12 @@ export function Calendar(): JSX.Element {
         select={onSelectCalendar}
         eventClick={({ event: { id } }) => onSelectEvent(id)}
       />
-      {showDetails && <EventEditor eventDetails={eventDetails} />}
+      {showDetails && (
+        <EventEditor
+          eventDetails={eventDetails}
+          onClickSave={onClickEventSave}
+        />
+      )}
     </div>
   );
 }

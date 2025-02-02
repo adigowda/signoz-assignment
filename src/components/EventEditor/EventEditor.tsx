@@ -7,14 +7,15 @@ import { ColorPicker } from "../ColorPicker/ColorPicker"
 
 interface EventEditorProps {
   eventDetails: IEvent;
+  onClickSave: (event: IEvent) => void;
 }
 
 export function EventEditor(props: EventEditorProps): JSX.Element {
-  const { eventDetails } = props;
+  const { eventDetails, onClickSave } = props;
   const [eventConfig, setEventConfig] = useState({
     ...eventDetails,
   });
-  const { title, start, end,color } = eventConfig;
+  const { title, start, end, color } = eventConfig;
 
   const handleChange = (property: Partial<IEvent>) => {
     setEventConfig((prev) => ({
@@ -28,6 +29,7 @@ export function EventEditor(props: EventEditorProps): JSX.Element {
       <input
         placeholder="Add title"
         value={title}
+        onChange={(e) => handleChange({ title: e.target.value })}
         autoFocus
         className="text-[16px] left-1/2 w-full px-2 pb-1 border-b-[1px] border-b-[#C4C7C5] outline-none"
       />
@@ -59,6 +61,14 @@ export function EventEditor(props: EventEditorProps): JSX.Element {
         selectedColor={color}
         onColorChange={(color) => handleChange({ color })}
       />
+      <button
+        onClick={() => {
+          onClickSave(eventConfig);
+        }}
+        className="relative bg-[#0b57d0] py-2 px-4 cursor-pointer text-white rounded-full w-fit left-full -translate-x-full"
+      >
+        Save
+      </button>
     </div>
   );
 }
