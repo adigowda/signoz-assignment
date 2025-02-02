@@ -54,6 +54,13 @@ export function Calendar(): JSX.Element {
         select={onSelectCalendar}
         eventClick={({ event: { id } }) => onSelectEvent(id)}
         nowIndicator
+        navLinks
+        eventMinHeight={20}
+        eventTimeFormat={{
+          hour: "numeric",
+          minute: "2-digit",
+          meridiem: "lowercase",
+        }}
       />
       {shouldShowDetails && (
         <EventEditor
