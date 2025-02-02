@@ -9,7 +9,7 @@ import { useCalendar } from "../../hooks/useCalendar";
 export function Calendar(): JSX.Element {
   const { events } = useEvents();
   const {
-    selectedEvent: { showDetails, eventDetails },
+    selectedEvent: { shouldShowDetails, eventDetails },
     onSelectCalendar,
     onSelectEvent,
     onClickEventSave,
@@ -43,12 +43,12 @@ export function Calendar(): JSX.Element {
         }}
         unselect={() => updateShowEventDetails(false)}
         unselectCancel={".event-editor,.MuiPickersPopper-root,.MuiPopover-root"}
-        selectable={showDetails === false}
+        selectable={!shouldShowDetails}
         events={events}
         select={onSelectCalendar}
         eventClick={({ event: { id } }) => onSelectEvent(id)}
       />
-      {showDetails && (
+      {shouldShowDetails && (
         <EventEditor
           onClickClose={() => updateShowEventDetails(false)}
           eventDetails={eventDetails}

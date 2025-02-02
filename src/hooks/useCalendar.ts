@@ -4,16 +4,16 @@ import { useEvents } from "./useEvents"
 
 export const useCalendar = () => {
   const [selectedEvent, setSelectedEvent] = useState<{
-    showDetails: boolean;
+    shouldShowDetails: boolean;
     eventDetails: IEvent;
-  }>({ showDetails: false, eventDetails: {} });
+  }>({ shouldShowDetails: false, eventDetails: {} });
 
   const { getEventById, createEvent, updateEvent } = useEvents();
 
   const onSelectCalendar = (info: DateSelectArg) => {
     const { start, end, allDay } = info;
     setSelectedEvent({
-      showDetails: true,
+      shouldShowDetails: true,
       eventDetails: {
         start,
         end,
@@ -25,13 +25,13 @@ export const useCalendar = () => {
 const onSelectEvent = (id: string) => {
   const eventDetails = getEventById(id);
   setSelectedEvent({
-    showDetails: true,
+    shouldShowDetails: true,
     eventDetails,
   });
 };
 
   const updateShowEventDetails = (show: boolean) => {
-    setSelectedEvent((prev) => ({ ...prev, showDetails: show }));
+    setSelectedEvent((prev) => ({ ...prev, shouldShowDetails: show }));
   };
 
   const onClickEventSave = (event: IEvent) => {
