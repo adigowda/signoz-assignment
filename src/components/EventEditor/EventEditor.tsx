@@ -1,6 +1,6 @@
 import { EventInput as IEvent } from "@fullcalendar/core";
 import dayjs from "dayjs";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TimePicker, DatePicker } from "@mui/x-date-pickers";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
 import Cross from "../../../public/Icons/cross.svg";
@@ -26,6 +26,19 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
   const startDate = dayjs(event.start as Date);
   const endDate = dayjs(event.end as Date);
   const isMultiDayEvent = endDate.diff(startDate, "days") > 0;
+
+  const onKeyClick = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keyup", onKeyClick);
+    return () => {
+      window.removeEventListener("keyup", onKeyClick);
+    };
+  }, []);
 
   return (
     <div
