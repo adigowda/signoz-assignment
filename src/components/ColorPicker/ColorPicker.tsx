@@ -17,9 +17,7 @@ export function ColorPicker(props: ColorPickerProps): JSX.Element {
   return (
     <div>
       <Select
-        variant="filled"
         value={selectedColor}
-        size="small"
         onChange={handleChange}
         MenuProps={{
           classes: {
@@ -29,7 +27,7 @@ export function ColorPicker(props: ColorPickerProps): JSX.Element {
       >
         {colors.map(({ hex, name }) => (
           <MenuItem key={hex} title={name} value={hex} className="!p-[6px]">
-            <div style={{ background: hex }} className="rounded-full w-4 h-4" />
+            <div style={{ background: hex }} className="mt-1 rounded-full w-4 h-4" />
           </MenuItem>
         ))}
       </Select>

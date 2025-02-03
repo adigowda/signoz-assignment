@@ -9,7 +9,7 @@ export const TimePicker = (props: TimePickerProps<Dayjs>) => {
     <MUITimePicker
       format="h:ma"
       slotProps={{
-        textField: { size: "small", variant: "filled" },
+        textField: { size: "small" },
         popper: { className: "time-popover" },
       }}
       sx={{ width: 140 }}

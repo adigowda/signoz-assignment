@@ -39,6 +39,7 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
     return () => {
       window.removeEventListener("keyup", onKeyClick);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -76,8 +77,9 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
         ref={titleInputRef}
         placeholder="Add title"
         value={event.title}
+        autoFocus={!event.id}
         onChange={(e) => handleChange({ title: e.target.value })}
-        className="text-[20px] left-1/2 w-full px-2 pb-1 border-b-[1px] border-b-[#C4C7C5] outline-none"
+        className="text-[20px] left-1/2 w-full px-2 pb-1 border-b-[#C4C7C5] outline-none border-b-[1px] focus:border-b-[#0b57d0] focus:border-b-[2px] hover:border-b-[#000000de]"
       />
       <div className="flex gap-4 items-center">
         <DatePicker
