@@ -1,20 +1,35 @@
 import { EventInput as IEvent } from "@fullcalendar/core";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
+import classNames from "classnames";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
 import Cross from "../../../public/Icons/cross.svg";
 import Edit from "../../../public/Icons/edit.svg";
 import Delete from "../../../public/Icons/delete.svg";
 import { IEventEditorProps } from "./EventEditor.types";
-import classNames from 'classnames'
-import { DatePicker } from "../DatePicker/DatePicker"
-import { TimePicker } from "../TimePicker/TimePicker"
+import { DatePicker } from "../DatePicker/DatePicker";
+import { TimePicker } from "../TimePicker/TimePicker";
 
 export function EventEditor(props: IEventEditorProps): JSX.Element {
   const { eventDetails, onClose, onSave, onDelete } = props;
   const titleInputRef = useRef<HTMLInputElement>(null);
   const [event, setEvent] = useState(eventDetails);
   const [isEditing, setIsEditing] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("keyup", onKeyClick);
+    return () => {
+      window.removeEventListener("keyup", onKeyClick);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (event.start && event.end) {
+      setIsError(event.start?.valueOf() > event.end?.valueOf());
+    }
+  }, [event]);
 
   const handleChange = (property: Partial<IEvent>) => {
     setIsEditing(true);
@@ -24,23 +39,15 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
     }));
   };
 
-  const startDate = dayjs(event.start as Date);
-  const endDate = dayjs(event.end as Date);
-  const isMultiDayEvent = endDate.diff(startDate, "days") > 0;
-
   const onKeyClick = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
       onClose();
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("keyup", onKeyClick);
-    return () => {
-      window.removeEventListener("keyup", onKeyClick);
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const startDate = dayjs(event.start as Date);
+  const endDate = dayjs(event.end as Date);
+  const isMultiDayEvent = endDate.diff(startDate, "days") !== 0;
 
   return (
     <div
@@ -92,6 +99,9 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
             <DatePicker
               value={endDate}
               onChange={(value) => handleChange({ end: value?.toDate() })}
+              shouldDisableDate={(selectedDate) =>
+                selectedDate.toDate() < startDate.toDate()
+              }
             />
           </>
         )}
@@ -99,12 +109,15 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
       <div className="flex gap-2 items-center">
         <TimePicker
           value={startDate}
-          onChange={(value) => handleChange({ start: value?.toISOString() })}
+          onChange={(value) => handleChange({ start: value?.toDate() })}
         />
         <p>to</p>
         <TimePicker
           value={endDate}
-          onChange={(value) => handleChange({ end: value?.toISOString() })}
+          onChange={(value) => handleChange({ end: value?.toDate() })}
+          shouldDisableTime={(selectedDate) =>
+            selectedDate.valueOf() < startDate.valueOf()
+          }
         />
       </div>
       <ColorPicker
@@ -116,7 +129,7 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
         className={classNames(
           "relative bg-[#0b57d0] py-2 px-4 cursor-pointer text-white rounded-full w-fit left-full -translate-x-full invisible",
           {
-            visible: isEditing,
+            visible: event.title && isEditing && !isError,
           }
         )}
       >
