@@ -71,6 +71,7 @@ export function Calendar(): JSX.Element {
           minute: "2-digit",
           meridiem: "lowercase",
         }}
+        longPressDelay={0}
       />
       {shouldShowDetails && (
         <EventEditor
