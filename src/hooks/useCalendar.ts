@@ -1,4 +1,5 @@
 import {
+  CalendarApi,
   DateSelectArg,
   EventDropArg,
   EventInput as IEvent,
@@ -7,7 +8,7 @@ import { useState } from "react";
 import { useEvents } from "./useEvents";
 import { EventResizeDoneArg } from "@fullcalendar/interaction/index.js";
 
-export const useCalendar = () => {
+export const useCalendar = (calendarApi?: CalendarApi) => {
   const [selectedEvent, setSelectedEvent] = useState<{
     shouldShowDetails: boolean;
     eventDetails: IEvent;
@@ -58,6 +59,7 @@ export const useCalendar = () => {
     } else {
       createEvent(event);
     }
+    calendarApi?.gotoDate(event.start as Date);
     updateShouldShowEventDetails(false);
   };
 

@@ -22,9 +22,7 @@ export function Calendar(): JSX.Element {
     onSaveEvent,
     onDeleteEvent,
     updateShouldShowEventDetails,
-  } = useCalendar();
-
-  const [calendarTitle, setCalendarTitle] = useState("");
+  } = useCalendar(calendarApi);
 
   useEffect(() => {
     if (!calendarTitle && calendarApi?.view.title) {
