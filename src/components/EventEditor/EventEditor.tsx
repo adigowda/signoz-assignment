@@ -28,7 +28,12 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
   const isMultiDayEvent = endDate.diff(startDate, "days") > 0;
 
   return (
-    <div className="bg-[#F0F4F9] shadow-2xl flex flex-col gap-6 z-10 p-6 w-[500px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl event-editor">
+    <div
+      className="bg-[#F0F4F9] border-[#039ae5] border-l-[20px] shadow-2xl flex flex-col gap-6 z-10 p-6 w-[500px] absolute bottom-1/2 translate-y-1/2 left-1/2 -translate-x-1/2 rounded-2xl event-editor"
+      style={{
+        borderColor: event.color,
+      }}
+    >
       <div className="flex items-center gap-4 justify-end">
         {event.id && (
           <>
