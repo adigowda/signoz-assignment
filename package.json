@@ -19,6 +19,7 @@
     "@fullcalendar/timegrid": "^6.1.15",
     "@mui/x-date-pickers": "^7.25.0",
     "@tailwindcss/vite": "^4.0.3",
+    "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "jotai": "^2.11.3",
     "jotai-immer": "^0.4.1",
