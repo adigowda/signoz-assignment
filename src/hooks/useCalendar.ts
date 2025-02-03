@@ -35,7 +35,7 @@ export const useCalendar = () => {
     });
   };
 
-  const updateShowEventDetails = (show: boolean) => {
+  const updateShouldShowEventDetails = (show: boolean) => {
     setSelectedEvent((prev) => ({ ...prev, shouldShowDetails: show }));
   };
 
@@ -58,7 +58,7 @@ export const useCalendar = () => {
     } else {
       createEvent(event);
     }
-    updateShowEventDetails(false);
+    updateShouldShowEventDetails(false);
   };
 
   const onDeleteEvent = (event: IEvent) => {
@@ -66,7 +66,7 @@ export const useCalendar = () => {
       return;
     }
     deleteEvent(event.id);
-    updateShowEventDetails(false);
+    updateShouldShowEventDetails(false);
   };
 
   return {
@@ -76,6 +76,6 @@ export const useCalendar = () => {
     onEventDragEnd,
     onSaveEvent,
     onDeleteEvent,
-    updateShowEventDetails,
+    updateShouldShowEventDetails,
   };
 };

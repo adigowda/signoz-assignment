@@ -21,7 +21,7 @@ export function Calendar(): JSX.Element {
     onEventDragEnd,
     onSaveEvent,
     onDeleteEvent,
-    updateShowEventDetails,
+    updateShouldShowEventDetails,
   } = useCalendar();
 
   const [calendarTitle, setCalendarTitle] = useState("");
@@ -64,7 +64,7 @@ export function Calendar(): JSX.Element {
             },
           },
         }}
-        unselect={() => updateShowEventDetails(false)}
+        unselect={() => updateShouldShowEventDetails(false)}
         unselectCancel={".event-editor,.date-popover,.time-popover,.dropdown-popover"}
         selectable={!shouldShowDetails}
         events={events}
@@ -85,7 +85,7 @@ export function Calendar(): JSX.Element {
       />
       {shouldShowDetails && (
         <EventEditor
-          onClose={() => updateShowEventDetails(false)}
+          onClose={() => updateShouldShowEventDetails(false)}
           eventDetails={eventDetails}
           onSave={onSaveEvent}
           onDelete={onDeleteEvent}
