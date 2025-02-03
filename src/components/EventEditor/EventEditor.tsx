@@ -67,7 +67,10 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
       />
       <div className="flex gap-4 items-center">
         <DatePicker
-          slotProps={{ textField: { size: "small", variant: "filled" } }}
+          slotProps={{
+            textField: { size: "small", variant: "filled" },
+            popper: { className: "date-popover" },
+          }}
           value={startDate}
           format="dddd, D MMM"
           onChange={(value) => handleChange({ start: value?.toDate() })}
@@ -76,7 +79,10 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
           <>
             <span> - </span>
             <DatePicker
-              slotProps={{ textField: { size: "small", variant: "filled" } }}
+              slotProps={{
+                textField: { size: "small", variant: "filled" },
+                popper: { className: "date-popover" },
+              }}
               value={endDate}
               format="dddd, D MMM"
               onChange={(value) => handleChange({ end: value?.toDate() })}
@@ -88,14 +94,20 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
         <TimePicker
           format="h:ma"
           value={startDate}
-          slotProps={{ textField: { size: "small", variant: "filled" } }}
+          slotProps={{
+            textField: { size: "small", variant: "filled" },
+            popper: { className: "time-popover" },
+          }}
           sx={{ width: 140 }}
           onChange={(value) => handleChange({ start: value?.toISOString() })}
         />
         <p>to</p>
         <TimePicker
           value={endDate}
-          slotProps={{ textField: { size: "small", variant: "filled" } }}
+          slotProps={{
+            textField: { size: "small", variant: "filled" },
+            popper: { className: "time-popover" },
+          }}
           format="h:ma"
           onChange={(value) => handleChange({ end: value?.toISOString() })}
           sx={{ width: 140 }}
