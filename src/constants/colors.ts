@@ -1,4 +1,4 @@
-export const colors = [
+export const EVENT_COLORS = [
   {
     hex: "#e67c73",
     name: "Flamingo",
@@ -44,3 +44,5 @@ export const colors = [
     name: "Grape",
   },
 ];
+
+export const DEFAULT_EVENT_COLOR = '#039ae5'
