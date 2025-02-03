@@ -24,7 +24,7 @@ export function Calendar(): JSX.Element {
   } = useCalendar(calendarApi);
 
   return (
-    <div className="p-10 max-sm:px-5 text-sm">
+    <div className="p-10 max-sm:px-5 relative text-sm max-sm:[&_.fc-toolbar-title]:absolute max-sm:[&_.fc-toolbar-title]:left-5 max-sm:[&_.fc-toolbar-title]:top-2 max-sm:[&_.fc-toolbar-title]:!text-xl">
       <FullCalendar
         ref={calendarRef}
         plugins={[timeGridPlugin, dayGridPlugin, interactPlugin]}
