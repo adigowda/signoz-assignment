@@ -42,6 +42,7 @@ export const useCalendar = (calendarApi?: CalendarApi) => {
 
   const updateShouldShowEventDetails = (show: boolean) => {
     setSelectedEvent((prev) => ({ ...prev, shouldShowDetails: show }));
+    calendarApi?.unselect()
   };
 
   const onEventDragEnd = (eventInfo: EventDropArg | EventResizeDoneArg) => {
