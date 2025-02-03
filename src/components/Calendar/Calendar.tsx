@@ -18,7 +18,8 @@ export function Calendar(): JSX.Element {
     onSelectCalendar,
     onSelectEvent,
     onEventDragEnd,
-    onClickEventSave,
+    onSaveEvent,
+    onDeleteEvent,
     updateShowEventDetails,
   } = useCalendar();
 
@@ -81,9 +82,10 @@ export function Calendar(): JSX.Element {
       />
       {shouldShowDetails && (
         <EventEditor
-          onClickClose={() => updateShowEventDetails(false)}
+          onClose={() => updateShowEventDetails(false)}
           eventDetails={eventDetails}
-          onClickSave={onClickEventSave}
+          onSave={onSaveEvent}
+          onDelete={onDeleteEvent}
         />
       )}
     </div>

@@ -20,6 +20,14 @@ export const useEvents = () => {
     });
   };
 
+  const deleteEvent = (id: string) => {
+    setCalendarEvents((calendarEvents) => {
+      const updatedEvents = { ...calendarEvents };
+      delete updatedEvents[id];
+      return updatedEvents;
+    });
+  };
+
   const getEventById = (id: string) => {
     return calendarEvents[id];
   };
@@ -37,6 +45,7 @@ export const useEvents = () => {
     events,
     createEvent,
     updateEvent,
+    deleteEvent,
     getEventById
   };
 };

@@ -13,7 +13,7 @@ export const useCalendar = () => {
     eventDetails: IEvent;
   }>({ shouldShowDetails: false, eventDetails: {} });
 
-  const { getEventById, createEvent, updateEvent } = useEvents();
+  const { getEventById, createEvent, updateEvent, deleteEvent } = useEvents();
 
   const onSelectCalendar = (info: DateSelectArg) => {
     const { start, end, allDay } = info;
@@ -27,13 +27,13 @@ export const useCalendar = () => {
     });
   };
 
-const onSelectEvent = (id: string) => {
-  const eventDetails = getEventById(id);
-  setSelectedEvent({
-    shouldShowDetails: true,
-    eventDetails,
-  });
-};
+  const onSelectEvent = (id: string) => {
+    const eventDetails = getEventById(id);
+    setSelectedEvent({
+      shouldShowDetails: true,
+      eventDetails,
+    });
+  };
 
   const updateShowEventDetails = (show: boolean) => {
     setSelectedEvent((prev) => ({ ...prev, shouldShowDetails: show }));
@@ -52,7 +52,7 @@ const onSelectEvent = (id: string) => {
     } as IEvent);
   };
 
-  const onClickEventSave = (event: IEvent) => {
+  const onSaveEvent = (event: IEvent) => {
     if (event.id) {
       updateEvent(event.id, event);
     } else {
@@ -61,12 +61,21 @@ const onSelectEvent = (id: string) => {
     updateShowEventDetails(false);
   };
 
+  const onDeleteEvent = (event: IEvent) => {
+    if(!event.id) {
+      return;
+    }
+    deleteEvent(event.id);
+    updateShowEventDetails(false);
+  };
+
   return {
     selectedEvent,
     onSelectCalendar,
     onSelectEvent,
     onEventDragEnd,
-    onClickEventSave,
-    updateShowEventDetails
+    onSaveEvent,
+    onDeleteEvent,
+    updateShowEventDetails,
   };
 };
