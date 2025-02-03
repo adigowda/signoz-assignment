@@ -51,7 +51,7 @@ export function Calendar(): JSX.Element {
         }}
         unselect={() => updateShouldShowEventDetails(false)}
         unselectCancel={
-          ".event-editor,.date-popover,.time-popover,.dropdown-popover"
+          ".event-editor,.date-popover,.time-popover,.dropdown-popover,.MuiDialog-root"
         }
         selectable={!shouldShowDetails}
         events={events}
