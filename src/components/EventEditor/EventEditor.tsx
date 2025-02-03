@@ -1,13 +1,14 @@
 import { EventInput as IEvent } from "@fullcalendar/core";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
-import { TimePicker, DatePicker } from "@mui/x-date-pickers";
+import { TimePicker } from "@mui/x-date-pickers";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
 import Cross from "../../../public/Icons/cross.svg";
 import Edit from "../../../public/Icons/edit.svg";
 import Delete from "../../../public/Icons/delete.svg";
 import { IEventEditorProps } from "./EventEditor.types";
 import classNames from 'classnames'
+import { DatePicker } from "../DatePicker/DatePicker"
 
 export function EventEditor(props: IEventEditorProps): JSX.Element {
   const { eventDetails, onClose, onSave, onDelete } = props;
@@ -80,24 +81,14 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
       />
       <div className="flex gap-4 items-center">
         <DatePicker
-          slotProps={{
-            textField: { size: "small", variant: "filled" },
-            popper: { className: "date-popover" },
-          }}
           value={startDate}
-          format="dddd, D MMM"
           onChange={(value) => handleChange({ start: value?.toDate() })}
         />
         {isMultiDayEvent && (
           <>
             <span> - </span>
             <DatePicker
-              slotProps={{
-                textField: { size: "small", variant: "filled" },
-                popper: { className: "date-popover" },
-              }}
               value={endDate}
-              format="dddd, D MMM"
               onChange={(value) => handleChange({ end: value?.toDate() })}
             />
           </>
@@ -105,25 +96,13 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
       </div>
       <div className="flex gap-2 items-center">
         <TimePicker
-          format="h:ma"
           value={startDate}
-          slotProps={{
-            textField: { size: "small", variant: "filled" },
-            popper: { className: "time-popover" },
-          }}
-          sx={{ width: 140 }}
           onChange={(value) => handleChange({ start: value?.toISOString() })}
         />
         <p>to</p>
         <TimePicker
           value={endDate}
-          slotProps={{
-            textField: { size: "small", variant: "filled" },
-            popper: { className: "time-popover" },
-          }}
-          format="h:ma"
           onChange={(value) => handleChange({ end: value?.toISOString() })}
-          sx={{ width: 140 }}
         />
       </div>
       <ColorPicker
