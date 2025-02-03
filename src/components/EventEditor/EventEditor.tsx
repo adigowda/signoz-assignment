@@ -1,7 +1,6 @@
 import { EventInput as IEvent } from "@fullcalendar/core";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
-import { TimePicker } from "@mui/x-date-pickers";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
 import Cross from "../../../public/Icons/cross.svg";
 import Edit from "../../../public/Icons/edit.svg";
@@ -9,6 +8,7 @@ import Delete from "../../../public/Icons/delete.svg";
 import { IEventEditorProps } from "./EventEditor.types";
 import classNames from 'classnames'
 import { DatePicker } from "../DatePicker/DatePicker"
+import { TimePicker } from "../TimePicker/TimePicker"
 
 export function EventEditor(props: IEventEditorProps): JSX.Element {
   const { eventDetails, onClose, onSave, onDelete } = props;
