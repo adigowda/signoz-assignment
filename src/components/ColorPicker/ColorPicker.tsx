@@ -23,7 +23,7 @@ export function ColorPicker(props: ColorPickerProps): JSX.Element {
         onChange={handleChange}
         MenuProps={{
           classes: {
-            list: "grid grid-cols-2 gap-1",
+            list: "grid grid-cols-2 gap-1 dropdown-popover",
           },
         }}
       >

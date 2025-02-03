@@ -65,7 +65,7 @@ export function Calendar(): JSX.Element {
           },
         }}
         unselect={() => updateShowEventDetails(false)}
-        unselectCancel={".event-editor,.date-popover,.time-popover"}
+        unselectCancel={".event-editor,.date-popover,.time-popover,.dropdown-popover"}
         selectable={!shouldShowDetails}
         events={events}
         editable
