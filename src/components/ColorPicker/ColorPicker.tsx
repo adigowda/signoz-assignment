@@ -18,6 +18,7 @@ export function ColorPicker(props: ColorPickerProps): JSX.Element {
     <div>
       <Select
         value={selectedColor}
+        size="small"
         onChange={handleChange}
         MenuProps={{
           classes: {

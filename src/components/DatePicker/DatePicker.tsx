@@ -8,6 +8,7 @@ export const DatePicker = (props: DatePickerProps<Dayjs>) => {
   return (
     <MUIDatePicker
       slotProps={{
+        textField: { size: "small" },
         popper: { className: "date-popover" },
       }}
       format="dddd, D MMM"
