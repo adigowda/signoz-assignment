@@ -27,5 +27,5 @@ https://github.com/user-attachments/assets/c623d4b8-13be-46e7-8dad-073ced1ed630
 
 ### Possible improvenemts
 - Event content
-- Configuratblex reminder time
+- Configurable reminder time
 - Tests
