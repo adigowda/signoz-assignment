@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import dayjs from "dayjs";
+import { useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -24,27 +23,15 @@ export function Calendar(): JSX.Element {
     updateShouldShowEventDetails,
   } = useCalendar(calendarApi);
 
-  useEffect(() => {
-    if (!calendarTitle && calendarApi?.view.title) {
-      setCalendarTitle(calendarApi?.view.title);
-    }
-
-    calendarApi?.on("datesSet", (event) => {
-      setCalendarTitle(event.view.title);
-    });
-
-    calendarApi?.scrollToTime(dayjs(Date.now()).format("hh:[00]"));
-  }, [calendarApi, calendarTitle]);
-
   return (
     <div className="p-10 max-sm:px-5 text-sm">
-      <p className="text-2xl mb-5 text-center">{calendarTitle}</p>
       <FullCalendar
         ref={calendarRef}
         plugins={[timeGridPlugin, dayGridPlugin, interactPlugin]}
         initialView="timeGridWeek"
         headerToolbar={{
           left: "prev,next today",
+          center: "title",
           right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         buttonText={{
@@ -75,6 +62,8 @@ export function Calendar(): JSX.Element {
         navLinks
         eventMinHeight={20}
         height="90vh"
+        scrollTime="09:00:00"
+        scrollTimeReset={false}
         eventTimeFormat={{
           hour: "numeric",
           minute: "2-digit",

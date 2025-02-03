@@ -4,17 +4,21 @@ import {
   EventDropArg,
   EventInput as IEvent,
 } from "@fullcalendar/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useEvents } from "./useEvents";
 import { EventResizeDoneArg } from "@fullcalendar/interaction/index.js";
+import dayjs from "dayjs"
 
 export const useCalendar = (calendarApi?: CalendarApi) => {
+  const { getEventById, createEvent, updateEvent, deleteEvent } = useEvents();
   const [selectedEvent, setSelectedEvent] = useState<{
     shouldShowDetails: boolean;
     eventDetails: IEvent;
   }>({ shouldShowDetails: false, eventDetails: {} });
 
-  const { getEventById, createEvent, updateEvent, deleteEvent } = useEvents();
+  useEffect(() => {
+    calendarApi?.scrollToTime(dayjs(Date.now()).format("HH:[00]"));
+  }, [calendarApi]);
 
   const onSelectCalendar = (info: DateSelectArg) => {
     const { start, end, allDay } = info;
