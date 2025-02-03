@@ -11,7 +11,7 @@ export const DatePicker = (props: DatePickerProps<Dayjs>) => {
         textField: { size: "small" },
         popper: { className: "date-popover" },
       }}
-      format="dddd, D MMM"
+      format="ddd, D MMM"
       {...props}
     />
   );

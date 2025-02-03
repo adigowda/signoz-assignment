@@ -1,5 +1,5 @@
 import { EventInput as IEvent } from "@fullcalendar/core";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
@@ -17,7 +17,18 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
   const [isEditing, setIsEditing] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  const startDate = dayjs(event.start as Date);
+  const endDate = dayjs(event.end as Date);
+  const isMultiDayEvent =
+    startDate.format("DD/MM/YYYY") !== endDate.format("DD/MM/YYYY");
+
   useEffect(() => {
+    const onKeyClick = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
     window.addEventListener("keyup", onKeyClick);
     return () => {
       window.removeEventListener("keyup", onKeyClick);
@@ -26,10 +37,8 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (event.start && event.end) {
-      setIsError(event.start?.valueOf() > event.end?.valueOf());
-    }
-  }, [event]);
+    setIsError(startDate?.valueOf() > endDate?.valueOf());
+  }, [startDate, endDate]);
 
   const handleChange = (property: Partial<IEvent>) => {
     setIsEditing(true);
@@ -39,15 +48,20 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
     }));
   };
 
-  const onKeyClick = (event: KeyboardEvent) => {
-    if (event.key === "Escape") {
-      onClose();
+  const onStartDateChange = (date: Dayjs | null) => {
+    if (!date) {
+      return;
     }
-  };
 
-  const startDate = dayjs(event.start as Date);
-  const endDate = dayjs(event.end as Date);
-  const isMultiDayEvent = endDate.diff(startDate, "days") !== 0;
+    const duration = endDate.valueOf() - startDate.valueOf();
+    const start = date.toDate();
+    const end = dayjs(date.valueOf() + duration).toDate();
+
+    handleChange({
+      start,
+      end,
+    });
+  };
 
   return (
     <div
@@ -82,17 +96,14 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
       </div>
       <input
         ref={titleInputRef}
-        placeholder="Add title"
+        placeholder="Add title *"
         value={event.title}
         autoFocus={!event.id}
         onChange={(e) => handleChange({ title: e.target.value })}
         className="text-[20px] left-1/2 w-full px-2 pb-1 border-b-[#C4C7C5] outline-none border-b-[1px] focus:border-b-[#0b57d0] focus:border-b-[2px] hover:border-b-[#000000de]"
       />
       <div className="flex gap-4 items-center">
-        <DatePicker
-          value={startDate}
-          onChange={(value) => handleChange({ start: value?.toDate() })}
-        />
+        <DatePicker value={startDate} onChange={onStartDateChange} />
         {isMultiDayEvent && (
           <>
             <span> - </span>
