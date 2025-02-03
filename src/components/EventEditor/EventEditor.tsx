@@ -7,6 +7,7 @@ import Cross from "../../../public/Icons/cross.svg";
 import Edit from "../../../public/Icons/edit.svg";
 import Delete from "../../../public/Icons/delete.svg";
 import { IEventEditorProps } from "./EventEditor.types";
+import classNames from 'classnames'
 
 export function EventEditor(props: IEventEditorProps): JSX.Element {
   const { eventDetails, onClose, onSave, onDelete } = props;
@@ -99,14 +100,17 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
         selectedColor={event.color}
         onColorChange={(color) => handleChange({ color })}
       />
-      {isEditing && event.title && (
-        <button
-          onClick={() => onSave(event)}
-          className="relative bg-[#0b57d0] py-2 px-4 cursor-pointer text-white rounded-full w-fit left-full -translate-x-full"
-        >
-          Save
-        </button>
-      )}
+      <button
+        onClick={() => onSave(event)}
+        className={classNames(
+          "relative bg-[#0b57d0] py-2 px-4 cursor-pointer text-white rounded-full w-fit left-full -translate-x-full invisible",
+          {
+            visible: isEditing,
+          }
+        )}
+      >
+        Save
+      </button>
     </div>
   );
 }
