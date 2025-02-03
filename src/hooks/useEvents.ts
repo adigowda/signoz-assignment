@@ -6,7 +6,7 @@ import { useMemo } from "react";
 
 export const useEvents = () => {
   const [calendarEvents, setCalendarEvents] = useAtom(eventsAtom);
-  
+
   const createEvent = (event: IEvent) => {
     const id = uuidv4();
     setCalendarEvents((calendarEvents) => {
@@ -38,7 +38,7 @@ export const useEvents = () => {
         id: key,
         ...calendarEvents[key],
       })),
-    [calendarEvents]
+    [calendarEvents],
   );
 
   return {
@@ -46,6 +46,6 @@ export const useEvents = () => {
     createEvent,
     updateEvent,
     deleteEvent,
-    getEventById
+    getEventById,
   };
 };

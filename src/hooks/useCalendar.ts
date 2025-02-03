@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { useEvents } from "./useEvents";
 import { EventResizeDoneArg } from "@fullcalendar/interaction/index.js";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 
 export const useCalendar = (calendarApi?: CalendarApi) => {
   const { getEventById, createEvent, updateEvent, deleteEvent } = useEvents();
@@ -42,7 +42,7 @@ export const useCalendar = (calendarApi?: CalendarApi) => {
 
   const updateShouldShowEventDetails = (show: boolean) => {
     setSelectedEvent((prev) => ({ ...prev, shouldShowDetails: show }));
-    calendarApi?.unselect()
+    calendarApi?.unselect();
   };
 
   const onEventDragEnd = (eventInfo: EventDropArg | EventResizeDoneArg) => {
@@ -69,7 +69,7 @@ export const useCalendar = (calendarApi?: CalendarApi) => {
   };
 
   const onDeleteEvent = (event: IEvent) => {
-    if(!event.id) {
+    if (!event.id) {
       return;
     }
     deleteEvent(event.id);

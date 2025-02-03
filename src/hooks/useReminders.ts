@@ -78,7 +78,7 @@ export const useReminders = () => {
           const message = `${currentEvent.title} will be starting in 10 mins`;
           return prevMessage + "\n" + message;
         },
-        ""
+        "",
       );
       window.alert(alertMessage);
 

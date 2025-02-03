@@ -142,7 +142,7 @@ export function EventEditor(props: IEventEditorProps): JSX.Element {
             "relative bg-[#0b57d0] py-2 px-4 cursor-pointer text-white rounded-full w-fit left-full -translate-x-full invisible",
             {
               visible: event.title && isEditing && !isError,
-            }
+            },
           )}
         >
           Save

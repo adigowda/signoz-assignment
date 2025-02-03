@@ -1,4 +1,4 @@
 export interface IColorPickerProps {
-    selectedColor?: string;
-    onColorChange: (color: string) => void;
-  }
+  selectedColor?: string;
+  onColorChange: (color: string) => void;
+}

@@ -45,4 +45,4 @@ export const EVENT_COLORS = [
   },
 ];
 
-export const DEFAULT_EVENT_COLOR = '#039ae5'
+export const DEFAULT_EVENT_COLOR = "#039ae5";
