@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import dayjs from "dayjs";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -23,16 +24,18 @@ export function Calendar(): JSX.Element {
     updateShowEventDetails,
   } = useCalendar();
 
-  const [calendarTitle, setCalendarTitle] = useState('');
+  const [calendarTitle, setCalendarTitle] = useState("");
 
   useEffect(() => {
-    if(!calendarTitle && calendarApi?.view.title) {
-      setCalendarTitle(calendarApi?.view.title)
+    if (!calendarTitle && calendarApi?.view.title) {
+      setCalendarTitle(calendarApi?.view.title);
     }
 
     calendarApi?.on("datesSet", (event) => {
       setCalendarTitle(event.view.title);
     });
+
+    calendarApi?.scrollToTime(dayjs(Date.now()).format("hh:[00]"));
   }, [calendarApi, calendarTitle]);
 
   return (
